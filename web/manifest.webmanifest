@@ -1,0 +1,26 @@
+{
+  "name": "Terço — Contemple os Mistérios",
+  "short_name": "Terço Contemple",
+  "description": "O Santo Terço com imagens, meditações, áudios e calendário litúrgico em português.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10242c",
+  "theme_color": "#142d35",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
