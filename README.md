@@ -12,3 +12,7 @@ Aplicativo católico para rezar o Santo Terço e contemplar os mistérios da vid
 Planejamento: 20 mistérios com cenas e reflexões, 28 áudios narrados em português, calendário litúrgico brasileiro, progresso salvo e opção de contemplação silenciosa.
 
 O site instalável e o APK são tecnologias distintas: instalar pelo navegador não equivale a instalar o aplicativo Java nativo. A versão Android exige a compilação de um APK. O código-fonte e os pacotes completos estão em preparação para publicação aqui.
+
+## Imagens WebP (v0.3.1)
+
+O aplicativo e o cache offline usam agora `web/assets/misterios/{gozosos,luminosos,dolorosos,gloriosos}-{1..5}.webp`. A publicação preserva arquivos WebP já enviados ao repositório e gera ilustrações de reserva quando estiverem ausentes. Para utilizar as pinturas detalhadas do pacote, enviar os 20 WebP para essa pasta e executar o workflow novamente.

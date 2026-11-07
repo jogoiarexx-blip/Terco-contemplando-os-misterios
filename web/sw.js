@@ -1,6 +1,6 @@
-const VERSION="terco-contemple-v0.3.0";
+const VERSION="terco-contemple-v0.3.1";
 const sets=["gozosos","luminosos","dolorosos","gloriosos"];
-const images=sets.flatMap(s=>[1,2,3,4,5].map(n=>"./assets/misterios/"+s+"-"+n+".png"));
+const images=sets.flatMap(s=>[1,2,3,4,5].map(n=>"./assets/misterios/"+s+"-"+n+".webp"));
 const audio=[...sets.flatMap(s=>[1,2,3,4,5].map(n=>"./assets/audio/"+s+"-"+n+".ogg")),...["cruz","credo","pai","ave","gloria","fatima","salve","final"].map(n=>"./assets/audio/oracao-"+n+".ogg")];
 const resources=["./","./index.html","./style.css","./app.js","./content.json","./icon.svg","./icon-192.png","./icon-512.png","./manifest.webmanifest",...images,...audio];
 self.addEventListener("install",e=>e.waitUntil(caches.open(VERSION).then(cache=>cache.addAll(resources)).then(()=>self.skipWaiting())));

@@ -79,7 +79,10 @@ def picture(key,index,m):
     if cur:lines.append(cur)
     for j,line in enumerate(lines[-2:]):
       draw.text((34,373+j*35),line,font=font(29,True),fill=(252,238,203,255),stroke_width=1,stroke_fill=(15,31,40,255))
-    im.save(IMG/(m["id"]+".png"),optimize=True)
+    # Preservar pinturas WebP personalizadas ja incorporadas no repositorio.
+    destino=IMG/(m["id"]+".webp")
+    if not destino.exists():
+        im.save(destino,format="WEBP",quality=84,method=6)
 
 for key,items in DATA["mysteries"].items():
  for i,m in enumerate(items):picture(key,i,m)
@@ -112,6 +115,6 @@ icon(192).save(WEB/"icon-192.png");icon(512).save(WEB/"icon-512.png")
 icon(192).save(AND/"res/drawable/app_icon.png")
 (ROOT/"misterios").mkdir(parents=True,exist_ok=True);(ROOT/"audio").mkdir(parents=True,exist_ok=True)
 shutil.copy2(WEB/"content.json",ROOT/"content.json")
-for src in IMG.glob("*.png"):shutil.copy2(src,ROOT/"misterios"/src.name)
+for src in IMG.glob("*.webp"):shutil.copy2(src,ROOT/"misterios"/src.name)
 for src in AUDIO.glob("*.ogg"):shutil.copy2(src,ROOT/"audio"/src.name)
-print("Concluído:",len(list(IMG.glob("*.png"))),"imagens, ",len(list(AUDIO.glob("*.ogg"))),"áudios, ícones e dados Android")
+print("Concluído:",len(list(IMG.glob("*.webp"))),"imagens WebP, ",len(list(AUDIO.glob("*.ogg"))),"áudios, ícones e dados Android")

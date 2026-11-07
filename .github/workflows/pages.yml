@@ -35,7 +35,7 @@ jobs:
           sudo apt-get install -y espeak-ng ffmpeg
           python -m pip install 'Pillow>=10,<12'
 
-      - name: Gerar 20 imagens e 28 áudios em português para uso offline
+      - name: Preparar 20 imagens WebP e 28 áudios em português para uso offline
         run: python scripts/generate_assets.py
 
       - name: Validar arquivos indispensáveis do PWA
@@ -50,11 +50,11 @@ jobs:
           assert m.get('name'), 'Manifesto sem nome'
           assert (p/'index.html').is_file()
           assert (p/'content.json').is_file()
-          assert len(list((p/'assets/misterios').glob('*.png')))==20
+          assert len(list((p/'assets/misterios').glob('*.webp')))==20
           assert len(list((p/'assets/audio').glob('*.ogg')))==28
           assert (p/'icon-192.png').is_file()
           assert (p/'icon-512.png').is_file()
-          print('OK: 20 imagens, 28 narrações e componentes do PWA presentes')
+          print('OK: 20 imagens WebP, 28 narrações e componentes do PWA presentes')
           PY
 
       - name: Preparar GitHub Pages
