@@ -1,0 +1,204 @@
+{
+  "app": "Terço — Contemple os Mistérios",
+  "version": "0.3.0",
+  "prayers": {
+    "cruz": "Em nome do Pai, do Filho e do Espírito Santo. Amém.",
+    "credo": "Creio em Deus Pai todo-poderoso, criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor, que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria; padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus; está sentado à direita de Deus Pai todo-poderoso, donde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo; na santa Igreja Católica; na comunhão dos santos; na remissão dos pecados; na ressurreição da carne; na vida eterna. Amém.",
+    "pai": "Pai nosso que estais no céu, santificado seja o vosso nome, venha a nós o vosso Reino, seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.",
+    "ave": "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém.",
+    "gloria": "Glória ao Pai, ao Filho e ao Espírito Santo, como era no princípio, agora e sempre. Amém.",
+    "fatima": "Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.",
+    "salve": "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e, depois deste desterro, mostrai-nos Jesus, bendito fruto do vosso ventre. Ó clemente, ó piedosa, ó doce sempre Virgem Maria. Rogai por nós, santa Mãe de Deus, para que sejamos dignos das promessas de Cristo. Amém.",
+    "final": "Oremos. Ó Deus, cujo Filho unigênito, por sua vida, morte e ressurreição, nos alcançou os prêmios da salvação eterna, concedei-nos, nós vos pedimos, que, meditando os mistérios do Santíssimo Rosário da Bem-aventurada Virgem Maria, imitemos o que contêm e alcancemos o que prometem. Pelo mesmo Cristo, nosso Senhor. Amém."
+  },
+  "mysteries": {
+    "gozosos": [
+      {
+        "id": "gozosos-1",
+        "title": "A Anunciação do Anjo a Maria",
+        "reference": "Lucas 1,26-38",
+        "fruit": "Humildade",
+        "scene": "O anjo Gabriel anuncia a Maria que ela será mãe de Jesus.",
+        "reflection": "Maria acolhe a vontade de Deus com confiança, mesmo sem conhecer todo o caminho.",
+        "question": "Em que situação preciso confiar mais em Deus?"
+      },
+      {
+        "id": "gozosos-2",
+        "title": "A Visitação de Maria a Isabel",
+        "reference": "Lucas 1,39-56",
+        "fruit": "Caridade",
+        "scene": "Maria visita Isabel e se coloca a serviço de quem precisa.",
+        "reflection": "A fé se manifesta na prontidão de cuidar do próximo.",
+        "question": "Quem precisa da minha presença hoje?"
+      },
+      {
+        "id": "gozosos-3",
+        "title": "O Nascimento de Jesus",
+        "reference": "Lucas 2,1-20",
+        "fruit": "Simplicidade",
+        "scene": "Jesus nasce em Belém e é deitado numa manjedoura.",
+        "reflection": "Deus escolhe a simplicidade para se aproximar de nós.",
+        "question": "Como abrir espaço para Jesus em minha vida?"
+      },
+      {
+        "id": "gozosos-4",
+        "title": "A Apresentação de Jesus no Templo",
+        "reference": "Lucas 2,22-35",
+        "fruit": "Obediência",
+        "scene": "Maria e José apresentam Jesus no templo.",
+        "reflection": "Simeão reconhece no Menino a luz que ilumina os povos.",
+        "question": "O que posso entregar a Deus com mais liberdade?"
+      },
+      {
+        "id": "gozosos-5",
+        "title": "O Encontro de Jesus no Templo",
+        "reference": "Lucas 2,41-52",
+        "fruit": "Busca de Deus",
+        "scene": "Maria e José procuram Jesus e o encontram entre os mestres.",
+        "reflection": "Perseverar na busca de Cristo, mesmo na dúvida, é exercício de fé.",
+        "question": "Onde encontro tempo para ouvir Jesus?"
+      }
+    ],
+    "luminosos": [
+      {
+        "id": "luminosos-1",
+        "title": "O Batismo de Jesus no Jordão",
+        "reference": "Mateus 3,13-17",
+        "fruit": "Abertura ao Espírito",
+        "scene": "Jesus é batizado por João e o Pai manifesta seu amor.",
+        "reflection": "Pelo batismo somos chamados a viver como filhos de Deus.",
+        "question": "Como posso renovar meu compromisso batismal?"
+      },
+      {
+        "id": "luminosos-2",
+        "title": "As Bodas de Caná",
+        "reference": "João 2,1-11",
+        "fruit": "Confiança",
+        "scene": "Maria percebe a necessidade dos noivos e aponta para Jesus.",
+        "reflection": "Levar as necessidades a Cristo é confiar que ele pode transformar a vida.",
+        "question": "O que preciso apresentar a Jesus?"
+      },
+      {
+        "id": "luminosos-3",
+        "title": "O Anúncio do Reino de Deus",
+        "reference": "Marcos 1,14-15",
+        "fruit": "Conversão",
+        "scene": "Jesus anuncia o Reino e convida à conversão.",
+        "reflection": "O Evangelho é convite diário a começar de novo.",
+        "question": "Que atitude preciso transformar?"
+      },
+      {
+        "id": "luminosos-4",
+        "title": "A Transfiguração de Jesus",
+        "reference": "Mateus 17,1-9",
+        "fruit": "Escuta",
+        "scene": "Jesus revela sua glória aos discípulos no monte.",
+        "reflection": "A voz do Pai nos convida a escutar seu Filho.",
+        "question": "Tenho escutado a Palavra de Deus?"
+      },
+      {
+        "id": "luminosos-5",
+        "title": "A Instituição da Eucaristia",
+        "reference": "Lucas 22,14-20",
+        "fruit": "Amor e gratidão",
+        "scene": "Jesus parte o pão e oferece o cálice na última ceia.",
+        "reflection": "Ele se entrega por amor e permanece presente na Eucaristia.",
+        "question": "Como viver a comunhão com generosidade?"
+      }
+    ],
+    "dolorosos": [
+      {
+        "id": "dolorosos-1",
+        "title": "A Agonia de Jesus no Horto",
+        "reference": "Lucas 22,39-46",
+        "fruit": "Aceitação",
+        "scene": "Jesus reza no Getsêmani em meio à angústia.",
+        "reflection": "Mesmo em sofrimento, Jesus confia no Pai.",
+        "question": "Posso levar minhas aflições a Deus em oração?"
+      },
+      {
+        "id": "dolorosos-2",
+        "title": "A Flagelação de Jesus",
+        "reference": "João 19,1",
+        "fruit": "Pureza de coração",
+        "scene": "Jesus suporta a violência antes da crucificação.",
+        "reflection": "Contemple o amor que permanece fiel diante da injustiça.",
+        "question": "Como responder à dor sem perder a compaixão?"
+      },
+      {
+        "id": "dolorosos-3",
+        "title": "A Coroação de Espinhos",
+        "reference": "Mateus 27,27-31",
+        "fruit": "Humildade",
+        "scene": "Jesus é humilhado e coroado de espinhos.",
+        "reflection": "A verdadeira realeza de Cristo é serviço e entrega.",
+        "question": "De que orgulho preciso me desapegar?"
+      },
+      {
+        "id": "dolorosos-4",
+        "title": "Jesus Carrega a Cruz",
+        "reference": "João 19,17",
+        "fruit": "Perseverança",
+        "scene": "Jesus caminha ao Calvário carregando a cruz.",
+        "reflection": "O Senhor acompanha nossas lutas e nos ensina a caminhar com esperança.",
+        "question": "Que cruz preciso carregar com fé e ajuda?"
+      },
+      {
+        "id": "dolorosos-5",
+        "title": "A Crucificação e Morte de Jesus",
+        "reference": "João 19,25-30",
+        "fruit": "Amor e perdão",
+        "scene": "Jesus entrega a vida na cruz; Maria permanece junto dele.",
+        "reflection": "A cruz revela a profundidade do amor de Deus.",
+        "question": "A quem devo oferecer perdão e reconciliação?"
+      }
+    ],
+    "gloriosos": [
+      {
+        "id": "gloriosos-1",
+        "title": "A Ressurreição de Jesus",
+        "reference": "Mateus 28,1-10",
+        "fruit": "Fé",
+        "scene": "O túmulo está vazio: Cristo ressuscitou.",
+        "reflection": "A vida venceu a morte e a esperança renasce.",
+        "question": "Que esperança desejo acolher hoje?"
+      },
+      {
+        "id": "gloriosos-2",
+        "title": "A Ascensão de Jesus",
+        "reference": "Atos 1,6-11",
+        "fruit": "Esperança",
+        "scene": "Jesus sobe ao céu e envia os discípulos em missão.",
+        "reflection": "A fé nos impulsiona a testemunhar o Evangelho no mundo.",
+        "question": "Onde posso ser testemunha de Cristo?"
+      },
+      {
+        "id": "gloriosos-3",
+        "title": "A Vinda do Espírito Santo",
+        "reference": "Atos 2,1-13",
+        "fruit": "Coragem",
+        "scene": "O Espírito Santo desce sobre os discípulos reunidos em oração.",
+        "reflection": "O Espírito fortalece a Igreja e dá coragem aos que anunciam Jesus.",
+        "question": "De qual dom do Espírito mais preciso?"
+      },
+      {
+        "id": "gloriosos-4",
+        "title": "A Assunção de Maria",
+        "reference": "Tradição da Igreja",
+        "fruit": "Confiança na promessa",
+        "scene": "A Igreja contempla Maria elevada à glória do céu.",
+        "reflection": "Em Maria resplandece a esperança da vida eterna em Cristo.",
+        "question": "Como cultivar a esperança da ressurreição?"
+      },
+      {
+        "id": "gloriosos-5",
+        "title": "A Coroação de Maria",
+        "reference": "Tradição da Igreja; cf. Apocalipse 12,1",
+        "fruit": "Perseverança",
+        "scene": "Maria é contemplada como Rainha do Céu e da Terra.",
+        "reflection": "A serva do Senhor participa da vitória de seu Filho.",
+        "question": "Como servir com humildade e alegria?"
+      }
+    ]
+  }
+}
