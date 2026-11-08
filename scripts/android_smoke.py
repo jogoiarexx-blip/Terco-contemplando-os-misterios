@@ -38,20 +38,31 @@ def find(part, root=None):
                  (n.attrib.get("text", "") + " " + n.attrib.get("content-desc", "")).lower()), None)
 
 
+def seek(part, max_scrolls=10):
+    """Localizar o item inclusive depois de rolar a tela, como um usuário."""
+    size = adb("shell", "wm", "size")
+    match = re.search(r"(\d+)x(\d+)", size)
+    width, height = (int(v) for v in match.groups()) if match else (1080, 1920)
+    for attempt in range(max_scrolls + 1):
+        root = dump()
+        node = find(part, root)
+        if node is not None:
+            return node
+        if attempt < max_scrolls:
+            adb("shell", "input", "swipe", str(width//2), str(int(height*.73)),
+                str(width//2), str(int(height*.30)), "480")
+            time.sleep(0.8)
+    visible = [n.attrib.get("text") for n in root.iter() if n.attrib.get("text")]
+    raise AssertionError(f"'{part}' não localizado depois da rolagem; visíveis: {visible[:45]}")
+
+
 def expect(part):
-    root = dump()
-    found = find(part, root)
-    if found is None:
-        visible = [n.attrib.get("text") for n in root.iter() if n.attrib.get("text")]
-        raise AssertionError(f"'{part}' não está visível: {visible[:45]}")
+    seek(part)
     print("PASSOU:", part, flush=True)
 
 
 def tap(part):
-    root = dump()
-    node = find(part, root)
-    if node is None:
-        raise AssertionError(f"Botão '{part}' não localizado")
+    node = seek(part)
     bounds = node.attrib.get("bounds", "")
     m = re.fullmatch(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", bounds)
     if m is None:
