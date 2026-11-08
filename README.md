@@ -24,3 +24,7 @@ As 20 pinturas WebP enviadas foram movidas para `web/assets/misterios/`, e as te
 ## Android v0.4.1-beta
 
 A beta usa 28 narrações MP3 no Android nativo (melhor compatibilidade com Android 6+), 20 pinturas WebP e teste de fluxo offline no emulador Android 9 via GitHub Actions. Site/PWA permanece separado. O APK beta continua com assinatura debug de CI, podendo exigir reinstalação para atualizar.
+
+## Android v0.4.2
+
+Melhoria de ergonomia: oração e pintura antes do rosário detalhado, navegação por ação fixa. Backup JSON exportável e restaurável localmente em Ajustes para preservar histórico, intenções e progresso quando a beta precisar ser reinstalada. Não distribua arquivos JSON com intenções pessoais publicamente. Ainda falta chave de assinatura permanente para atualizações instaláveis sem desinstalar.

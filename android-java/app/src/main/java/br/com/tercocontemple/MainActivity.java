@@ -3,6 +3,8 @@ package br.com.tercocontemple;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -44,9 +46,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Iterator;
 import java.util.Set;
 
-/** Terço — Contemple os Mistérios Android v0.4.1 — Interface nativa Java, oração e conteúdo offline. */
+/** Terço — Contemple os Mistérios Android v0.4.2 — Interface nativa Java, oração e conteúdo offline. */
 public final class MainActivity extends Activity {
     private static final int BG=0xff0d252a,CARD=0xff19383b,GOLD=0xffefd1a0,TXT=0xfff7f2e8,SOFT=0xffbaccc8;
     private static final String[] KEYS={"gozosos","luminosos","dolorosos","gloriosos"};
@@ -56,6 +59,8 @@ public final class MainActivity extends Activity {
     private SharedPreferences prefs;
     private JSONObject content;
     private LinearLayout page;
+    private LinearLayout quickActions;
+    private static final int EXPORT_PROGRESS=7041, IMPORT_PROGRESS=7042;
     private String tab="hoje",detailSet="",selectedDateKey="";
     private Calendar shownMonth=Calendar.getInstance();
     private MediaPlayer player;
@@ -147,6 +152,7 @@ public final class MainActivity extends Activity {
         ScrollView scroll=new ScrollView(this);scroll.setFillViewport(false);scroll.setVerticalScrollBarEnabled(false);
         page=stack();page.setPadding(dp(18),0,dp(18),dp(30));scroll.addView(page);
         root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
+        quickActions=stack();quickActions.setPadding(dp(14),dp(6),dp(14),dp(6));quickActions.setBackgroundColor(0xff143238);quickActions.setVisibility(View.GONE);root.addView(quickActions);
         HorizontalScrollView horizontal=new HorizontalScrollView(this);horizontal.setHorizontalScrollBarEnabled(false);horizontal.setBackgroundColor(0xff143238);
         LinearLayout nav=new LinearLayout(this);nav.setPadding(dp(5),dp(7),dp(5),dp(9));
         String[] keys={"hoje","rezar","misterios","calendario","historico","ajustes"};
@@ -164,7 +170,8 @@ public final class MainActivity extends Activity {
         else if("historico".equals(tab))historyScreen();
         else settingsScreen();
     }
-    private void art(LinearLayout target,String set,int num){
+    private void art(LinearLayout target,String set,int num){art(target,set,num,235);}
+    private void art(LinearLayout target,String set,int num,int height){
         String path="misterios/"+set+"-"+(num+1)+".webp";
         try(InputStream in=getAssets().open(path)){
             BitmapFactory.Options options=new BitmapFactory.Options();options.inSampleSize=2;
@@ -172,7 +179,7 @@ public final class MainActivity extends Activity {
             if(bitmap==null)throw new IllegalStateException("Pintura inválida: "+path);
             ImageView image=new ImageView(this);image.setImageBitmap(bitmap);image.setScaleType(ImageView.ScaleType.CENTER_CROP);
             image.setContentDescription("Pintura do mistério "+mystery(set,num).optString("title"));
-            LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,dp(235));p.setMargins(0,dp(10),0,dp(12));target.addView(image,p);
+            LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,dp(height));p.setMargins(0,dp(7),0,dp(10));target.addView(image,p);
         }catch(Exception e){addText(target,"Imagem indisponível",13,SOFT,false);}
     }
     private void title(String small,String big,String description){
@@ -211,37 +218,87 @@ public final class MainActivity extends Activity {
         }
         int pos=index();Step step=steps.get(pos);
         title("ORAÇÃO EM ANDAMENTO","Meu Santo Terço","Etapa "+(pos+1)+" de "+steps.size()+" · "+(pos*100/steps.size())+"% concluído");
-        LinearLayout progress=card();
-        for(int dec=0;dec<5;dec++){
-            int counted=0,total=0;
-            for(int j=0;j<steps.size();j++){Step s=steps.get(j);if(s.decade==dec&&s.kind.equals("ave")){total++;if(j<pos)counted++;}}
-            addText(progress,"Mistério "+(dec+1)+" · "+counted+"/"+total+" Ave-Marias "+(counted==10?"✓":""),13,counted==10?GOLD:SOFT,false);
-            LinearLayout beads=new LinearLayout(this);beads.setGravity(Gravity.CENTER_VERTICAL);
-            for(int b=0;b<10;b++){TextView dot=text(b<counted?"●":"○",17,b<counted?GOLD:SOFT,true);dot.setPadding(dp(3),0,dp(3),0);beads.addView(dot);}
-            progress.addView(beads);
+
+        if(step.decade>=0){
+            int counted=0;
+            for(int j=0;j<pos;j++){Step prev=steps.get(j);if(prev.decade==step.decade && "ave".equals(prev.kind))counted++;}
+            addText(page,"Mistério "+(step.decade+1)+" de 5 · "+counted+" de 10 Ave-Marias",14,GOLD,true);
         }
-        String intent=prefs.getString("intention","");if(!intent.isEmpty())addText(page,"♡ Intenção: "+intent,14,GOLD,false);
         LinearLayout body=card();
-        if(step.decade>=0){JSONObject m=mystery(set,step.decade);addText(body,(step.decade+1)+"º mistério · "+setName(set),12,GOLD,true);addText(body,m.optString("title"),21,TXT,true);}
+        if(step.decade>=0){
+            JSONObject m=mystery(set,step.decade);
+            addText(body,(step.decade+1)+"º mistério · "+setName(set),12,GOLD,true);
+            addText(body,m.optString("title"),20,TXT,true);
+        }
         if("meditation".equals(step.kind)){
-            JSONObject m=mystery(set,step.decade);art(body,set,step.decade);
+            JSONObject m=mystery(set,step.decade);
+            art(body,set,step.decade,185);
             addText(body,"Referência bíblica: "+m.optString("ref"),14,GOLD,true);
-            addText(body,"1. Imagine a cena",16,GOLD,true);addText(body,m.optString("scene"),16,TXT,false);
-            addText(body,"2. Contemple com o coração",16,GOLD,true);addText(body,m.optString("reflection"),16,TXT,false);
-            addText(body,"3. Leve para a vida",16,GOLD,true);addText(body,m.optString("question"),16,TXT,false);
+            addText(body,"1. Imagine a cena",16,GOLD,true);
+            addText(body,m.optString("scene"),16,TXT,false);
+            addText(body,"2. Contemple com o coração",16,GOLD,true);
+            addText(body,m.optString("reflection"),16,TXT,false);
+            addText(body,"3. Leve para a vida",16,GOLD,true);
+            addText(body,m.optString("question"),16,TXT,false);
             addText(body,"Fruto espiritual: "+m.optString("fruit"),15,GOLD,true);
         }else{
-            JSONObject p=prayer(step.kind);addText(body,p.optString("name"),24,TXT,true);
-            if(step.kind.equals("ave") && step.decade>=0)addText(body,step.bead+"ª Ave-Maria da dezena",14,GOLD,true);
-            addText(body,p.optString("text"),20,TXT,false);
+            JSONObject p=prayer(step.kind);
+            addText(body,p.optString("name"),23,TXT,true);
+            if("ave".equals(step.kind)&&step.decade>=0)
+                addText(body,step.bead+"ª Ave-Maria da dezena",14,GOLD,true);
+            addText(body,p.optString("text"),21,TXT,false);
         }
+
         addButton(body,"▶ Ouvir em português (offline)",()->playStep(step),false);
-        if("meditation".equals(step.kind))addButton(body,"Iniciar silêncio de "+prefs.getInt("silence",30)+" segundos",()->startSilence(prefs.getInt("silence",30)),false);
-        LinearLayout buttons=stack();page.addView(buttons);
-        if(pos>0)addButton(buttons,"← Voltar uma oração",()->{saveIndex(pos-1);show("rezar");},false);
-        addButton(buttons,pos==steps.size()-1?"Concluir terço ✓":"Terminei esta oração →",()->advance(),true);
+        if("meditation".equals(step.kind)){
+            addButton(body,"Iniciar silêncio de "+prefs.getInt("silence",30)+" segundos",
+                ()->startSilence(prefs.getInt("silence",30)),false);
+        }else if(step.decade>=0){
+            art(body,set,step.decade,135);
+        }
+
+        String intention=prefs.getString("intention","");
+        if(!intention.isEmpty())addText(page,"♡ Intenção: "+intention,14,GOLD,false);
+
+        // O painel completo não ocupa o início da tela de oração; expansível se desejado.
+        LinearLayout summary=card();
+        LinearLayout details=stack();details.setVisibility(View.GONE);
+        Button toggle=btn("Mostrar as cinco dezenas",()->{
+            boolean open=details.getVisibility()!=View.VISIBLE;
+            details.setVisibility(open?View.VISIBLE:View.GONE);
+        },false);
+        summary.addView(toggle,new LinearLayout.LayoutParams(-1,dp(49)));
+        for(int dec=0;dec<5;dec++){
+            int counted=0;
+            for(int j=0;j<pos;j++){
+                Step prev=steps.get(j);
+                if(prev.decade==dec && "ave".equals(prev.kind))counted++;
+            }
+            addText(details,"Mistério "+(dec+1)+" · "+counted+"/10 Ave-Marias"+(counted==10?" ✓":""),13,counted==10?GOLD:SOFT,false);
+            LinearLayout beads=new LinearLayout(this);beads.setGravity(Gravity.CENTER_VERTICAL);
+            for(int b=0;b<10;b++){
+                TextView dot=text(b<counted?"●":"○",16,b<counted?GOLD:SOFT,true);
+                dot.setPadding(dp(3),0,dp(3),0);beads.addView(dot);
+            }
+            details.addView(beads);
+        }
+        summary.addView(details);
+
         addButton(page,"Pausar e voltar ao início",()->show("hoje"),false);
-        addText(page,"O avanço é manual para respeitar seu ritmo. Seu progresso permanece no aparelho.",12,SOFT,false);
+        addText(page,"Avance no seu ritmo. Seu progresso é salvo no aparelho.",12,SOFT,false);
+
+        // Ações principais sempre acessíveis com uma mão, sem rolar até o fim da oração.
+        quickActions.setVisibility(View.VISIBLE);
+        LinearLayout bar=new LinearLayout(this);bar.setGravity(Gravity.CENTER_VERTICAL);
+        if(pos>0){
+            Button back=btn("‹ Voltar",()->{saveIndex(pos-1);show("rezar");},false);
+            LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(dp(94),dp(52));
+            bp.setMargins(0,0,dp(8),0);bar.addView(back,bp);
+        }
+        Button next=btn(pos==steps.size()-1?"Concluir terço ✓":"Terminei esta oração →",
+            ()->advance(),true);
+        bar.addView(next,new LinearLayout.LayoutParams(0,dp(52),1));
+        quickActions.addView(bar);
     }
     private void advance(){int p=index(),length=sequence().size();stopSound();
         if(p<length-1)saveIndex(p+1);
@@ -343,8 +400,135 @@ public final class MainActivity extends Activity {
         addText(settings,"A narração incluída é uma voz sintetizada simples em pt-BR. Pode ser usada sem conexão e não depende de serviços externos.",13,SOFT,false);
         LinearLayout privacy=card();addText(privacy,"PRIVACIDADE",14,GOLD,true);
         addText(privacy,"Sem conta, sem anúncios, sem permissão de Internet. Orações, histórico e intenções ficam no Android.",15,TXT,false);
+        addText(privacy,"Cópias locais permitem recuperar suas orações ao trocar de aparelho ou reinstalar o APK beta. O arquivo inclui suas intenções pessoais: guarde-o em um local privado.",13,SOFT,false);
+        addButton(privacy,"Exportar meu progresso (JSON)",()->exportProgress(),true);
+        addButton(privacy,"Importar progresso salvo (JSON)",()->importProgress(),false);
         addButton(privacy,"Apagar histórico e progresso",()->new AlertDialog.Builder(this).setTitle("Apagar progresso?").setMessage("O histórico, as intenções e as sessões serão apagados deste dispositivo.").setNegativeButton("Cancelar",null).setPositiveButton("Apagar",(dialog,which)->{prefs.edit().clear().apply();fatima=true;show("hoje");}).show(),false);
-        addText(page,"Terço — Contemple os Mistérios 0.4.1 — Projeto Android nativo em Java. Android 6 ou superior. Fonte e conteúdos incluídos.",12,SOFT,false);
+        addText(page,"Terço — Contemple os Mistérios 0.4.2 — Android nativo em Java. Offline, backup de progresso e 20 pinturas locais.",12,SOFT,false);
+    }
+    private boolean backupKey(String k){
+        return k.equals("set")||k.equals("fatima")||k.equals("tts")||
+               k.equals("silence")||k.equals("intention")||k.equals("history")||
+               k.matches("(step|done):[0-9]{4}-[0-9]{2}-[0-9]{2}\\|(gozosos|luminosos|dolorosos|gloriosos)");
+    }
+    private void exportProgress(){
+        Intent intent=new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/json");
+        intent.putExtra(Intent.EXTRA_TITLE,"terco-contemple-progresso-"+dayDate()+".json");
+        startActivityForResult(intent,EXPORT_PROGRESS);
+    }
+    private void importProgress(){
+        Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/json");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivityForResult(intent,IMPORT_PROGRESS);
+    }
+    private void writeProgress(Uri uri) throws Exception{
+        JSONObject data=new JSONObject();
+        for(Map.Entry<String,?> e:prefs.getAll().entrySet()){
+            if(backupKey(e.getKey()))data.put(e.getKey(),e.getValue());
+        }
+        JSONObject file=new JSONObject();
+        file.put("format","terco-contemple-backup");
+        file.put("version",1);
+        file.put("data",data);
+        OutputStream out=getContentResolver().openOutputStream(uri,"w");
+        if(out==null)throw new IllegalStateException("Não foi possível criar o arquivo.");
+        try(OutputStream stream=out){
+            stream.write(file.toString(2).getBytes(StandardCharsets.UTF_8));
+        }
+    }
+    private JSONObject readProgress(Uri uri) throws Exception{
+        ByteArrayOutputStream b=new ByteArrayOutputStream();
+        InputStream in=getContentResolver().openInputStream(uri);
+        if(in==null)throw new IllegalStateException("Não foi possível abrir o arquivo.");
+        try(InputStream stream=in){
+            byte[] bytes=new byte[4096];
+            int n;
+            while((n=stream.read(bytes))!=-1){
+                if(b.size()+n>128*1024)throw new IllegalArgumentException("Arquivo de backup grande demais.");
+                b.write(bytes,0,n);
+            }
+        }
+        JSONObject root=new JSONObject(new String(b.toByteArray(),StandardCharsets.UTF_8));
+        if(!"terco-contemple-backup".equals(root.optString("format"))||root.optInt("version")!=1)
+            throw new IllegalArgumentException("Arquivo não é um backup compatível deste aplicativo.");
+        JSONObject data=root.getJSONObject("data");
+        if(data.length()>2000)throw new IllegalArgumentException("Backup com entradas demais.");
+        Iterator<String> keys=data.keys();
+        while(keys.hasNext()){
+            String k=keys.next();
+            if(!backupKey(k))throw new IllegalArgumentException("Campo inesperado: "+k);
+            Object v=data.get(k);
+            if(k.equals("set")){
+                if(!(v instanceof String))throw new IllegalArgumentException("Escolha de mistério inválida.");
+                boolean valid="auto".equals(v);
+                for(String key:KEYS)if(key.equals(v))valid=true;
+                if(!valid)throw new IllegalArgumentException("Mistério inválido.");
+            }else if(k.equals("intention")){
+                if(!(v instanceof String)||((String)v).length()>2000)
+                    throw new IllegalArgumentException("Intenção inválida.");
+            }else if(k.equals("history")){
+                if(!(v instanceof String)||((String)v).length()>60000)
+                    throw new IllegalArgumentException("Histórico inválido.");
+                JSONArray hist=new JSONArray((String)v);
+                if(hist.length()>1000)throw new IllegalArgumentException("Histórico extenso demais.");
+            }else if(k.startsWith("step:")||k.equals("silence")){
+                if(!(v instanceof Number))throw new IllegalArgumentException("Número inválido no progresso.");
+                Number num=(Number)v;
+                int value=num.intValue();
+                if(num.doubleValue()!=value||k.startsWith("step:")&&(value<0||value>100)||
+                   k.equals("silence")&&value!=30&&value!=60&&value!=90)
+                    throw new IllegalArgumentException("Número de progresso fora do intervalo.");
+            }else if(!(v instanceof Boolean)){
+                throw new IllegalArgumentException("Opção de oração inválida.");
+            }
+        }
+        return data;
+    }
+    private void applyProgress(JSONObject data) throws Exception{
+        SharedPreferences.Editor editor=prefs.edit().clear();
+        Iterator<String> keys=data.keys();
+        while(keys.hasNext()){
+            String k=keys.next();
+            Object v=data.get(k);
+            if(v instanceof Boolean)editor.putBoolean(k,(Boolean)v);
+            else if(v instanceof Number)editor.putInt(k,((Number)v).intValue());
+            else editor.putString(k,(String)v);
+        }
+        if(!editor.commit())throw new IllegalStateException("Não foi possível salvar o progresso.");
+        fatima=prefs.getBoolean("fatima",true);
+        show("ajustes");
+    }
+    @Override protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(resultCode!=RESULT_OK||data==null||data.getData()==null)return;
+        Uri uri=data.getData();
+        try{
+            if(requestCode==EXPORT_PROGRESS){
+                writeProgress(uri);
+                Toast.makeText(this,"Progresso exportado. Guarde o arquivo em segurança.",Toast.LENGTH_LONG).show();
+            }else if(requestCode==IMPORT_PROGRESS){
+                final JSONObject restored=readProgress(uri);
+                new AlertDialog.Builder(this).setTitle("Restaurar progresso?")
+                    .setMessage("Isso substituirá as orações, intenções e preferências atuais pelos dados deste arquivo. Deseja continuar?")
+                    .setNegativeButton("Cancelar",null)
+                    .setPositiveButton("Restaurar",(dialog,which)->{
+                        try{
+                            applyProgress(restored);
+                            Toast.makeText(this,"Progresso restaurado.",Toast.LENGTH_LONG).show();
+                        }catch(Exception ex){
+                            new AlertDialog.Builder(this).setTitle("Falha na restauração")
+                                .setMessage(ex.getMessage()).setPositiveButton("OK",null).show();
+                        }
+                    }).show();
+            }
+        }catch(Exception ex){
+            new AlertDialog.Builder(this).setTitle("Arquivo de progresso inválido")
+                .setMessage(ex.getMessage()).setPositiveButton("OK",null).show();
+        }
     }
     private void stopSound(){
         if(player!=null){try{player.stop();player.release();}catch(Exception ignored){}player=null;}

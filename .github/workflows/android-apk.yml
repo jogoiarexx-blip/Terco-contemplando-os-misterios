@@ -124,27 +124,27 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: telas-teste-android-v0.4.1
+          name: telas-teste-android-v0.4.2
           path: qa-android/
           if-no-files-found: ignore
 
       - name: Preparar instalador beta
         run: |
-          cp android-java/app/build/outputs/apk/debug/app-debug.apk terco-contemple-v0.4.1-android-beta.apk
-          test -s terco-contemple-v0.4.1-android-beta.apk
+          cp android-java/app/build/outputs/apk/debug/app-debug.apk terco-contemple-v0.4.2-android-beta.apk
+          test -s terco-contemple-v0.4.2-android-beta.apk
       - name: Anexar APK para download na execução
         uses: actions/upload-artifact@v4
         with:
-          name: terco-contemple-android-v0.4.1-beta
-          path: terco-contemple-v0.4.1-android-beta.apk
+          name: terco-contemple-android-v0.4.2-beta
+          path: terco-contemple-v0.4.2-android-beta.apk
           if-no-files-found: error
 
       - name: Disponibilizar APK beta para download público (versão de teste)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TAG="android-v0.4.1-beta.${GITHUB_RUN_NUMBER}"
-          gh release create "$TAG" terco-contemple-v0.4.1-android-beta.apk \
-            --title "Terço — Contemple os Mistérios Android v0.4.1 (beta #${GITHUB_RUN_NUMBER})" \
+          TAG="android-v0.4.2-beta.${GITHUB_RUN_NUMBER}"
+          gh release create "$TAG" terco-contemple-v0.4.2-android-beta.apk \
+            --title "Terço — Contemple os Mistérios Android v0.4.2 (beta #${GITHUB_RUN_NUMBER})" \
             --notes "APK **de teste**, Android 6+, nativo em Java, offline com 20 pinturas WebP, 28 narrações MP3 e contemplação. Compilado e assinado com chave debug do CI: atualizações futuras da versão beta poderão exigir desinstalação; isso apagará os dados locais. Não é versão final assinada para lojas." \
             --prerelease --target "$GITHUB_SHA"

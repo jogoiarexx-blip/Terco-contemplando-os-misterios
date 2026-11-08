@@ -105,12 +105,16 @@ def run():
     tap("Rezar")
     expect("Creio em Deus")
     screenshot("progresso-recuperado")
+    tap("Ajustes")
+    expect("Exportar meu progresso")
+    expect("Importar progresso salvo")
+    screenshot("backup-offline")
     adb("shell","am","force-stop",PKG)
     errors = adb("logcat","-d","-t","3000","-v","brief")
     fatal = [line for line in errors.splitlines()
              if "FATAL EXCEPTION" in line or "Unable to start activity" in line]
     if fatal: raise AssertionError("Falha AndroidRuntime: " + " | ".join(fatal[:5]))
-    print("APROVADO: abertura, telas, áudio acionado, avanço e retomada no modo offline",flush=True)
+    print("APROVADO: abertura, oração acessível, áudio, avanço, retomada e opções de backup offline",flush=True)
 
 
 if __name__ == "__main__":
