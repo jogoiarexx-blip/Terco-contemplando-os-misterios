@@ -16,3 +16,7 @@ O site instalável e o APK são tecnologias distintas: instalar pelo navegador n
 ## Imagens WebP (v0.3.1)
 
 O aplicativo e o cache offline usam agora `web/assets/misterios/{gozosos,luminosos,dolorosos,gloriosos}-{1..5}.webp`. A publicação preserva arquivos WebP já enviados ao repositório e gera ilustrações de reserva quando estiverem ausentes. Para utilizar as pinturas detalhadas do pacote, enviar os 20 WebP para essa pasta e executar o workflow novamente.
+
+## Pinturas publicadas — v0.3.2
+
+As 20 pinturas WebP enviadas foram movidas para `web/assets/misterios/`, e as telas de oração e contemplação usam esses arquivos. O Service Worker renova o cache offline na versão `terco-contemple-v0.3.2`. O Android Java permanece em `android-java/` para distribuição posterior.

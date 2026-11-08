@@ -35,6 +35,18 @@ jobs:
           sudo apt-get install -y espeak-ng ffmpeg
           python -m pip install 'Pillow>=10,<12'
 
+      - name: Confirmar as 20 pinturas originais do repositório
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          d = Path("web/assets/misterios")
+          nomes = {f"{tipo}-{i}.webp" for tipo in ("gozosos","luminosos","dolorosos","gloriosos") for i in range(1,6)}
+          presentes = {p.name for p in d.glob("*.webp")}
+          assert presentes == nomes, f"Pinturas ausentes/inesperadas: {sorted(nomes ^ presentes)}"
+          assert all((d / n).stat().st_size > 10000 for n in nomes)
+          print("20 pinturas WebP conferidas")
+          PY
+
       - name: Preparar 20 imagens WebP e 28 áudios em português para uso offline
         run: python scripts/generate_assets.py
 

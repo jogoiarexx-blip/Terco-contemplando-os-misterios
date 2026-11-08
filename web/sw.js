@@ -1,4 +1,4 @@
-const VERSION="terco-contemple-v0.3.1";
+const VERSION="terco-contemple-v0.3.2";
 const sets=["gozosos","luminosos","dolorosos","gloriosos"];
 const images=sets.flatMap(s=>[1,2,3,4,5].map(n=>"./assets/misterios/"+s+"-"+n+".webp"));
 const audio=[...sets.flatMap(s=>[1,2,3,4,5].map(n=>"./assets/audio/"+s+"-"+n+".ogg")),...["cruz","credo","pai","ave","gloria","fatima","salve","final"].map(n=>"./assets/audio/oracao-"+n+".ogg")];

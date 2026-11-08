@@ -1,7 +1,10 @@
-# Pinturas dos 20 Mistérios
+# Pinturas do Santo Terço — v0.3.2
 
-Envie aqui os arquivos `.webp` extraídos de `TERCO_CONTEMPLE_20_PINTURAS_WEBP_GITHUB.zip`.
+As 20 pinturas devocionais em WebP estão nesta pasta, uma por mistério.
 
-Nomes esperados: `gozosos-1.webp` até `gozosos-5.webp`, `luminosos-1.webp` até `luminosos-5.webp`, `dolorosos-1.webp` até `dolorosos-5.webp` e `gloriosos-1.webp` até `gloriosos-5.webp`.
+- `gozosos-1.webp` a `gozosos-5.webp`
+- `luminosos-1.webp` a `luminosos-5.webp`
+- `dolorosos-1.webp` a `dolorosos-5.webp`
+- `gloriosos-1.webp` a `gloriosos-5.webp`
 
-Ao salvar no branch `main`, o GitHub Actions publica as pinturas na versão web. O script de geração preserva os arquivos WebP já incluídos e cria imagens de reserva somente para arquivos ausentes.
+O aplicativo utiliza estas imagens nas telas e no cache offline. O gerador de recursos preserva os WebP existentes.
