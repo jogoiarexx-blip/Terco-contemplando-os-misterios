@@ -148,7 +148,16 @@ public final class MainActivity extends Activity {
     private void show(String newTab){
         stopSound();stopSilence();tab=newTab;
         LinearLayout root=stack();root.setBackgroundColor(BG);
-        TextView brand=text("✝  TERÇO · CONTEMPLE",19,GOLD,true);brand.setGravity(Gravity.CENTER);brand.setPadding(dp(10),dp(17),dp(10),dp(15));root.addView(brand);
+        LinearLayout header=new LinearLayout(this);header.setGravity(Gravity.CENTER_VERTICAL);
+        header.setPadding(dp(14),dp(8),dp(12),dp(8));
+        TextView brand=text("✝  TERÇO · CONTEMPLE",18,GOLD,true);
+        header.addView(brand,new LinearLayout.LayoutParams(0,dp(48),1));
+        brand.setGravity(Gravity.CENTER_VERTICAL);
+        Button settingsShortcut=btn("⚙",()->show("ajustes"),false);
+        settingsShortcut.setContentDescription("Abrir Ajustes");
+        settingsShortcut.setMinWidth(dp(48));
+        header.addView(settingsShortcut,new LinearLayout.LayoutParams(dp(52),dp(44)));
+        root.addView(header);
         ScrollView scroll=new ScrollView(this);scroll.setFillViewport(false);scroll.setVerticalScrollBarEnabled(false);
         page=stack();page.setPadding(dp(18),0,dp(18),dp(30));scroll.addView(page);
         root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
