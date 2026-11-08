@@ -33,7 +33,7 @@ def dump():
 
 
 def find(part, root=None):
-    root = root or dump()
+    root = root if root is not None else dump()
     return next((n for n in root.iter() if part.lower() in
                  (n.attrib.get("text", "") + " " + n.attrib.get("content-desc", "")).lower()), None)
 
@@ -80,7 +80,7 @@ def run():
     expect("Um encontro diário")
     expect("MISTÉRIOS DE HOJE")
     screenshot("inicio-offline")
-    tap("Começar a rezar")
+    tap("Rezar")
     expect("Meu Santo Terço")
     expect("Em nome do Pai")
     screenshot("primeira-oracao")
@@ -91,7 +91,7 @@ def run():
     adb("shell","am","force-stop",PKG)
     adb("shell","am","start","-W","-n",ACT)
     time.sleep(4)
-    tap("Continuar meu terço")
+    tap("Rezar")
     expect("Creio em Deus")
     screenshot("progresso-recuperado")
     adb("shell","am","force-stop",PKG)
