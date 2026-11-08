@@ -5,6 +5,7 @@ on:
     paths:
       - 'android-java/**'
       - 'scripts/generate_assets.py'
+      - 'scripts/android_smoke.py'
       - 'web/assets/misterios/**'
       - '.github/workflows/android-apk.yml'
   workflow_dispatch:
