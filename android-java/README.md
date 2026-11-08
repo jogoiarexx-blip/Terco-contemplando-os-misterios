@@ -9,3 +9,7 @@ Código Java independente do PWA e sem WebView. A compilação do GitHub Actions
 - Compilação com AGP 8.9.2, Gradle 8.11.1, JDK 17 e Android SDK 35
 
 **Importante:** APK publicado é assinado com chave debug temporária do GitHub Actions. Atualizações podem requerer desinstalar a beta, eliminando progresso e intenções locais. Uma distribuição de produção exigirá assinatura persistente, teste em Android real e revisão de acessibilidade.
+
+## Android v0.4.1-beta — áudio compatível e testes reais
+
+A compilação passa a converter as 28 narrações locais de OGG/Opus para MP3, compatível com versões antigas do Android. O app continua sem permissão de internet. O CI executa abertura, clique em oração, tentativa de reprodução, avanço e retomada de progresso no emulador Android 9 com Wi-Fi/dados desligados; salva capturas. A beta ainda utiliza a chave de debug temporária do runner, não sendo apropriada como atualização assinada estável.

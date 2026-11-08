@@ -38,6 +38,29 @@ jobs:
           python scripts/generate_assets.py
           cp /tmp/terco-native-content.json android-java/app/src/main/assets/content.json
 
+      - name: Converter 28 narrações para MP3 compatível desde Android 6
+        run: |
+          set -euo pipefail
+          A="android-java/app/src/main/assets/audio"
+          for f in "$A"/*.ogg; do
+            ffmpeg -nostdin -hide_banner -loglevel error -y -i "$f" -ac 1 -ar 24000 -codec:a libmp3lame -b:a 48k "${f%.ogg}.mp3"
+          done
+          rm "$A"/*.ogg
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          a=Path("android-java/app/src/main/assets/audio")
+          files=list(a.glob("*.mp3"))
+          assert len(files)==28 and not list(a.glob("*.ogg"))
+          for p in files:
+            codec=subprocess.check_output(
+                ["ffprobe","-v","error","-select_streams","a:0","-show_entries","stream=codec_name",
+                 "-of","default=nokey=1:noprint_wrappers=1",str(p)],text=True).strip()
+            assert codec=="mp3",(p,codec)
+            assert p.stat().st_size>1000,p
+          print("OK: 28 narrações MP3 validadas por ffprobe")
+          PY
+
       - name: Validar pacote integral e ausência de permissão de internet
         run: |
           python - <<'PY'
@@ -47,7 +70,7 @@ jobs:
           p=json.loads((root/'assets/content.json').read_text(encoding='utf-8'))
           expected={f'{kind}-{i}.webp' for kind in ('gozosos','luminosos','dolorosos','gloriosos') for i in range(1,6)}
           images=list((root/'assets/misterios').glob('*.webp'))
-          audios=list((root/'assets/audio').glob('*.ogg'))
+          audios=list((root/'assets/audio').glob('*.mp3'))
           assert set(x.name for x in images)==expected, 'Pinturas do APK incompletas'
           assert all(x.stat().st_size>10000 for x in images), 'Pintura vazia'
           assert len(audios)==28 and all(x.stat().st_size>200 for x in audios), 'Áudios incompletos'
@@ -82,23 +105,45 @@ jobs:
         working-directory: android-java
         run: gradle --no-daemon --stacktrace :app:assembleDebug
 
+      - name: Permitir aceleração do emulador (KVM)
+        run: |
+          if test -e /dev/kvm; then sudo chmod 666 /dev/kvm; fi
+
+      - name: Teste real em emulador Android 9, sem internet
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 28
+          arch: x86_64
+          profile: pixel_2
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          disable-animations: true
+          script: python scripts/android_smoke.py
+
+      - name: Salvar capturas do teste Android
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: telas-teste-android-v0.4.1
+          path: qa-android/
+          if-no-files-found: ignore
+
       - name: Preparar instalador beta
         run: |
-          cp android-java/app/build/outputs/apk/debug/app-debug.apk terco-contemple-v0.4.0-android-beta.apk
-          test -s terco-contemple-v0.4.0-android-beta.apk
+          cp android-java/app/build/outputs/apk/debug/app-debug.apk terco-contemple-v0.4.1-android-beta.apk
+          test -s terco-contemple-v0.4.1-android-beta.apk
       - name: Anexar APK para download na execução
         uses: actions/upload-artifact@v4
         with:
-          name: terco-contemple-android-v0.4.0-beta
-          path: terco-contemple-v0.4.0-android-beta.apk
+          name: terco-contemple-android-v0.4.1-beta
+          path: terco-contemple-v0.4.1-android-beta.apk
           if-no-files-found: error
 
       - name: Disponibilizar APK beta para download público (versão de teste)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TAG="android-v0.4.0-beta.${GITHUB_RUN_NUMBER}"
-          gh release create "$TAG" terco-contemple-v0.4.0-android-beta.apk \
-            --title "Terço — Contemple os Mistérios Android v0.4.0 (beta #${GITHUB_RUN_NUMBER})" \
-            --notes "APK **de teste**, Android 6+, nativo em Java, offline com 20 pinturas WebP, 28 narrações e contemplação. Compilado e assinado com chave debug do CI: atualizações futuras da versão beta poderão exigir desinstalação; isso apagará os dados locais. Não é versão final assinada para lojas." \
+          TAG="android-v0.4.1-beta.${GITHUB_RUN_NUMBER}"
+          gh release create "$TAG" terco-contemple-v0.4.1-android-beta.apk \
+            --title "Terço — Contemple os Mistérios Android v0.4.1 (beta #${GITHUB_RUN_NUMBER})" \
+            --notes "APK **de teste**, Android 6+, nativo em Java, offline com 20 pinturas WebP, 28 narrações MP3 e contemplação. Compilado e assinado com chave debug do CI: atualizações futuras da versão beta poderão exigir desinstalação; isso apagará os dados locais. Não é versão final assinada para lojas." \
             --prerelease --target "$GITHUB_SHA"

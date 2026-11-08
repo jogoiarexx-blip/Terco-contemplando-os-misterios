@@ -20,3 +20,7 @@ O aplicativo e o cache offline usam agora `web/assets/misterios/{gozosos,luminos
 ## Pinturas publicadas — v0.3.2
 
 As 20 pinturas WebP enviadas foram movidas para `web/assets/misterios/`, e as telas de oração e contemplação usam esses arquivos. O Service Worker renova o cache offline na versão `terco-contemple-v0.3.2`. O Android Java permanece em `android-java/` para distribuição posterior.
+
+## Android v0.4.1-beta
+
+A beta usa 28 narrações MP3 no Android nativo (melhor compatibilidade com Android 6+), 20 pinturas WebP e teste de fluxo offline no emulador Android 9 via GitHub Actions. Site/PWA permanece separado. O APK beta continua com assinatura debug de CI, podendo exigir reinstalação para atualizar.

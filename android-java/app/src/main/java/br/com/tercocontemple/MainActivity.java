@@ -46,7 +46,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-/** Terço — Contemple os Mistérios Android v0.4 — Interface nativa Java, oração e conteúdo offline. */
+/** Terço — Contemple os Mistérios Android v0.4.1 — Interface nativa Java, oração e conteúdo offline. */
 public final class MainActivity extends Activity {
     private static final int BG=0xff0d252a,CARD=0xff19383b,GOLD=0xffefd1a0,TXT=0xfff7f2e8,SOFT=0xffbaccc8;
     private static final String[] KEYS={"gozosos","luminosos","dolorosos","gloriosos"};
@@ -344,7 +344,7 @@ public final class MainActivity extends Activity {
         LinearLayout privacy=card();addText(privacy,"PRIVACIDADE",14,GOLD,true);
         addText(privacy,"Sem conta, sem anúncios, sem permissão de Internet. Orações, histórico e intenções ficam no Android.",15,TXT,false);
         addButton(privacy,"Apagar histórico e progresso",()->new AlertDialog.Builder(this).setTitle("Apagar progresso?").setMessage("O histórico, as intenções e as sessões serão apagados deste dispositivo.").setNegativeButton("Cancelar",null).setPositiveButton("Apagar",(dialog,which)->{prefs.edit().clear().apply();fatima=true;show("hoje");}).show(),false);
-        addText(page,"Terço — Contemple os Mistérios 0.4.0 — Projeto Android nativo em Java. Android 6 ou superior. Fonte e conteúdos incluídos.",12,SOFT,false);
+        addText(page,"Terço — Contemple os Mistérios 0.4.1 — Projeto Android nativo em Java. Android 6 ou superior. Fonte e conteúdos incluídos.",12,SOFT,false);
     }
     private void stopSound(){
         if(player!=null){try{player.stop();player.release();}catch(Exception ignored){}player=null;}
@@ -352,7 +352,7 @@ public final class MainActivity extends Activity {
     }
     private void playStep(Step s){
         stopSound();
-        String set=selectedSet(),name=s.kind.equals("meditation")?set+"-"+(s.decade+1)+".ogg":"oracao-"+s.kind+".ogg";
+        String set=selectedSet(),name=s.kind.equals("meditation")?set+"-"+(s.decade+1)+".mp3":"oracao-"+s.kind+".mp3";
         if(prefs.getBoolean("tts",false)&&offlineVoice!=null&&ttsReady){
             try{
                 tts.setVoice(offlineVoice);
@@ -371,7 +371,7 @@ public final class MainActivity extends Activity {
                     byte[] bytes=new byte[8192];int n;while((n=in.read(bytes))!=-1)out.write(bytes,0,n);
                 }
             }
-            player=new MediaPlayer();player.setDataSource(file.getAbsolutePath());player.setOnCompletionListener(p->{p.release();if(player==p)player=null;});player.prepare();player.start();
+            player=new MediaPlayer();player.setDataSource(file.getAbsolutePath());player.setOnCompletionListener(p->{p.release();if(player==p)player=null;});player.setOnErrorListener((mp,what,extra)->{if(player==mp)player=null;mp.release();Toast.makeText(this,"Áudio indisponível neste aparelho. A oração permanece no texto.",Toast.LENGTH_LONG).show();return true;});player.prepare();player.start();
         }catch(Exception ex){Toast.makeText(this,"O áudio não abriu. Você pode rezar acompanhando o texto.",Toast.LENGTH_LONG).show();}
     }
     private void stopSilence(){if(silenceTick!=null){handler.removeCallbacks(silenceTick);silenceTick=null;}silenceRemaining=0;}
