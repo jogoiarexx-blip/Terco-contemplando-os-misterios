@@ -1,0 +1,97 @@
+name: Compilar Terço Android Java — APK beta
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'android-java/**'
+      - 'scripts/generate_assets.py'
+      - 'web/assets/misterios/**'
+      - '.github/workflows/android-apk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-java-beta
+  cancel-in-progress: false
+
+jobs:
+  android-beta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter projeto
+        uses: actions/checkout@v4
+
+      - name: Preparar ferramentas para recursos offline
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y espeak-ng ffmpeg
+          python -m pip install 'Pillow>=10,<12'
+
+      - name: Reunir 20 pinturas e 28 narrações locais sem substituir os textos nativos
+        run: |
+          cp android-java/app/src/main/assets/content.json /tmp/terco-native-content.json
+          python scripts/generate_assets.py
+          cp /tmp/terco-native-content.json android-java/app/src/main/assets/content.json
+
+      - name: Validar pacote integral e ausência de permissão de internet
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('android-java/app/src/main')
+          p=json.loads((root/'assets/content.json').read_text(encoding='utf-8'))
+          expected={f'{kind}-{i}.webp' for kind in ('gozosos','luminosos','dolorosos','gloriosos') for i in range(1,6)}
+          images=list((root/'assets/misterios').glob('*.webp'))
+          audios=list((root/'assets/audio').glob('*.ogg'))
+          assert set(x.name for x in images)==expected, 'Pinturas do APK incompletas'
+          assert all(x.stat().st_size>10000 for x in images), 'Pintura vazia'
+          assert len(audios)==28 and all(x.stat().st_size>200 for x in audios), 'Áudios incompletos'
+          assert set(p['MYSTERIES'])=={'gozosos','luminosos','dolorosos','gloriosos'}
+          assert all(len(p['MYSTERIES'][key]['items'])==5 for key in p['MYSTERIES'])
+          assert all(x in p['PRAYERS'] for x in ['cruz','credo','pai','ave','gloria','fatima','salve','final'])
+          assert 'android.permission.INTERNET' not in (root/'AndroidManifest.xml').read_text()
+          print('Verificação completa: 20 imagens + 28 áudios + 20 meditações + 8 orações, sem internet.')
+          PY
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Configurar Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Configurar Gradle 8.11.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Instalar SDK Android 35
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Compilar APK Android nativo em Java
+        working-directory: android-java
+        run: gradle --no-daemon --stacktrace :app:assembleDebug
+
+      - name: Preparar instalador beta
+        run: |
+          cp android-java/app/build/outputs/apk/debug/app-debug.apk terco-contemple-v0.4.0-android-beta.apk
+          test -s terco-contemple-v0.4.0-android-beta.apk
+      - name: Anexar APK para download na execução
+        uses: actions/upload-artifact@v4
+        with:
+          name: terco-contemple-android-v0.4.0-beta
+          path: terco-contemple-v0.4.0-android-beta.apk
+          if-no-files-found: error
+
+      - name: Disponibilizar APK beta para download público (versão de teste)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="android-v0.4.0-beta.${GITHUB_RUN_NUMBER}"
+          gh release create "$TAG" terco-contemple-v0.4.0-android-beta.apk \
+            --title "Terço — Contemple os Mistérios Android v0.4.0 (beta #${GITHUB_RUN_NUMBER})" \
+            --notes "APK **de teste**, Android 6+, nativo em Java, offline com 20 pinturas WebP, 28 narrações e contemplação. Compilado e assinado com chave debug do CI: atualizações futuras da versão beta poderão exigir desinstalação; isso apagará os dados locais. Não é versão final assinada para lojas." \
+            --prerelease --target "$GITHUB_SHA"

@@ -1,0 +1,236 @@
+{
+  "MYSTERIES": {
+    "gozosos": {
+      "name": "Gozosos",
+      "short": "Alegria da Encarnação",
+      "tone": "rose",
+      "subtitle": "Contemple a chegada de Jesus e a fé de Maria.",
+      "items": [
+        {
+          "title": "A Anunciação do Anjo a Maria",
+          "ref": "Lucas 1,26-38",
+          "fruit": "Humildade",
+          "scene": "O anjo Gabriel anuncia que Maria será a mãe de Jesus. Ela acolhe a vontade de Deus com liberdade e confiança.",
+          "reflection": "Deus entra na história de maneira simples. Maria não conhece todos os caminhos, mas responde com fé. Contemple sua disponibilidade diante do chamado de Deus.",
+          "question": "Em que parte da minha vida preciso confiar mais em Deus?"
+        },
+        {
+          "title": "A Visitação de Maria a Isabel",
+          "ref": "Lucas 1,39-56",
+          "fruit": "Amor ao próximo",
+          "scene": "Maria parte para ajudar Isabel. A alegria do encontro revela uma fé que se transforma em serviço.",
+          "reflection": "Quem acolhe Cristo também se torna presença de consolo. Contemple Maria caminhando com prontidão para cuidar de alguém.",
+          "question": "Quem precisa hoje da minha presença ou ajuda?"
+        },
+        {
+          "title": "O Nascimento de Jesus",
+          "ref": "Lucas 2,1-20",
+          "fruit": "Simplicidade",
+          "scene": "Jesus nasce em Belém e é colocado numa manjedoura. Os pastores recebem o anúncio de grande alegria.",
+          "reflection": "O Salvador chega na pobreza e na ternura. Contemple o silêncio de Belém e a dignidade do Menino que vem ao encontro de todos.",
+          "question": "Que espaço posso abrir para Jesus na minha rotina?"
+        },
+        {
+          "title": "A Apresentação de Jesus no Templo",
+          "ref": "Lucas 2,22-35",
+          "fruit": "Obediência e entrega",
+          "scene": "Maria e José apresentam o Menino no Templo. Simeão reconhece nele a luz prometida aos povos.",
+          "reflection": "A família de Nazaré entrega ao Pai aquilo que mais ama. Contemple a fidelidade nas pequenas escolhas de cada dia.",
+          "question": "O que desejo colocar confiantemente nas mãos de Deus?"
+        },
+        {
+          "title": "O Encontro de Jesus no Templo",
+          "ref": "Lucas 2,41-52",
+          "fruit": "Busca de Deus",
+          "scene": "Após procurá-lo com aflição, Maria e José encontram Jesus entre os mestres no Templo.",
+          "reflection": "Mesmo quando não compreendemos tudo, podemos continuar procurando Jesus. Contemple a perseverança de Maria e José.",
+          "question": "Onde tenho buscado encontrar Cristo?"
+        }
+      ]
+    },
+    "luminosos": {
+      "name": "Luminosos",
+      "short": "Luz da vida pública de Jesus",
+      "tone": "blue",
+      "subtitle": "Contemple os sinais e os ensinamentos de Cristo.",
+      "items": [
+        {
+          "title": "O Batismo de Jesus no Jordão",
+          "ref": "Mateus 3,13-17",
+          "fruit": "Abertura ao Espírito Santo",
+          "scene": "Jesus é batizado por João. O Espírito desce e a voz do Pai proclama seu amor pelo Filho.",
+          "reflection": "Contemple Jesus entrando nas águas e revelando sua missão. Recorde a graça de seu próprio batismo e a identidade de filho amado.",
+          "question": "Como posso viver hoje minha vocação batismal?"
+        },
+        {
+          "title": "As Bodas de Caná",
+          "ref": "João 2,1-11",
+          "fruit": "Confiança em Jesus",
+          "scene": "Em Caná, Maria percebe a necessidade dos noivos e orienta os serventes a fazer tudo o que Jesus disser.",
+          "reflection": "A atenção de Maria abre espaço para o primeiro sinal de Jesus. Contemple a confiança que transforma a falta em ocasião de graça.",
+          "question": "Que necessidade eu desejo apresentar a Jesus?"
+        },
+        {
+          "title": "O Anúncio do Reino de Deus",
+          "ref": "Marcos 1,14-15",
+          "fruit": "Conversão",
+          "scene": "Jesus anuncia a proximidade do Reino e chama todos a mudar de vida e crer no Evangelho.",
+          "reflection": "A boa notícia pede uma resposta concreta. Contemple Jesus chamando pessoas comuns a recomeçar com esperança.",
+          "question": "Qual atitude preciso mudar para viver o Evangelho?"
+        },
+        {
+          "title": "A Transfiguração de Jesus",
+          "ref": "Mateus 17,1-9",
+          "fruit": "Desejo de santidade",
+          "scene": "No monte, Jesus manifesta sua glória diante de Pedro, Tiago e João. Os discípulos são convidados a escutá-lo.",
+          "reflection": "A luz do Cristo transfigurado fortalece a caminhada, mesmo quando há dificuldades. Contemple sua presença iluminando suas decisões.",
+          "question": "Em meio às dificuldades, tenho reservado tempo para escutar Jesus?"
+        },
+        {
+          "title": "A Instituição da Eucaristia",
+          "ref": "Lucas 22,14-20",
+          "fruit": "Amor à Eucaristia",
+          "scene": "Na Última Ceia, Jesus oferece o pão e o cálice como sinal de sua entrega pela humanidade.",
+          "reflection": "Contemple o amor que se faz alimento e doação. Agradeça pela presença de Cristo e pelo convite a amar com generosidade.",
+          "question": "Como posso transformar gratidão em serviço aos outros?"
+        }
+      ]
+    },
+    "dolorosos": {
+      "name": "Dolorosos",
+      "short": "Amor de Cristo na Paixão",
+      "tone": "red",
+      "subtitle": "Contemple a entrega de Jesus por amor à humanidade.",
+      "items": [
+        {
+          "title": "A Agonia de Jesus no Horto",
+          "ref": "Lucas 22,39-46",
+          "fruit": "Entrega à vontade de Deus",
+          "scene": "No Getsêmani, Jesus reza diante do sofrimento que se aproxima e confia sua vontade ao Pai.",
+          "reflection": "Contemple Jesus que conhece a angústia humana e permanece em oração. Entregue a Deus aquilo que lhe pesa no coração.",
+          "question": "Que medo ou sofrimento preciso apresentar em oração?"
+        },
+        {
+          "title": "A Flagelação de Jesus",
+          "ref": "João 19,1",
+          "fruit": "Domínio de si",
+          "scene": "Jesus é açoitado durante sua Paixão, suportando a violência e a injustiça.",
+          "reflection": "Contemple a dignidade de Jesus em meio à dor. Reze por quem sofre violência, humilhação e abandono.",
+          "question": "Como posso agir com mais respeito diante da dor alheia?"
+        },
+        {
+          "title": "A Coroação de Espinhos",
+          "ref": "Marcos 15,16-20",
+          "fruit": "Coragem e mansidão",
+          "scene": "Os soldados colocam uma coroa de espinhos em Jesus e zombam de sua realeza.",
+          "reflection": "A verdadeira grandeza de Cristo não está no poder que humilha, mas no amor que se doa. Contemple sua mansidão.",
+          "question": "Como respondo quando sou incompreendido ou provocado?"
+        },
+        {
+          "title": "Jesus Carrega a Cruz",
+          "ref": "João 19,16-17",
+          "fruit": "Perseverança",
+          "scene": "Jesus caminha em direção ao Calvário carregando a cruz.",
+          "reflection": "Contemple cada passo de Jesus. Recorde as pessoas que carregam fardos pesados e peça força para caminhar com fidelidade.",
+          "question": "De quem posso aliviar um pouco a cruz hoje?"
+        },
+        {
+          "title": "A Crucifixão e Morte de Jesus",
+          "ref": "Lucas 23,33-46",
+          "fruit": "Amor e perdão",
+          "scene": "Na cruz, Jesus entrega sua vida ao Pai e oferece ao mundo a profundidade de seu amor.",
+          "reflection": "Permaneça aos pés da cruz com Maria. Contemple o amor que não desiste e confie a Deus suas feridas e esperanças.",
+          "question": "Que perdão ou gesto de reconciliação posso começar?"
+        }
+      ]
+    },
+    "gloriosos": {
+      "name": "Gloriosos",
+      "short": "Esperança da Ressurreição",
+      "tone": "gold",
+      "subtitle": "Contemple a vitória de Cristo e a esperança da vida eterna.",
+      "items": [
+        {
+          "title": "A Ressurreição de Jesus",
+          "ref": "Mateus 28,1-10",
+          "fruit": "Fé",
+          "scene": "As mulheres encontram o túmulo vazio e recebem a notícia de que Jesus ressuscitou.",
+          "reflection": "A morte não tem a última palavra. Contemple a alegria da manhã da Páscoa e deixe a esperança alcançar suas preocupações.",
+          "question": "Onde preciso reencontrar a esperança?"
+        },
+        {
+          "title": "A Ascensão de Jesus",
+          "ref": "Atos 1,6-11",
+          "fruit": "Esperança",
+          "scene": "Jesus é elevado ao céu diante dos discípulos e lhes confia a continuação de sua missão.",
+          "reflection": "Contemple os discípulos chamados a olhar para o alto sem deixar de agir na terra. A fé se transforma em testemunho.",
+          "question": "Como posso testemunhar o amor de Cristo em minhas ações?"
+        },
+        {
+          "title": "A Vinda do Espírito Santo",
+          "ref": "Atos 2,1-4",
+          "fruit": "Docilidade ao Espírito Santo",
+          "scene": "No Pentecostes, o Espírito Santo vem sobre os discípulos reunidos em oração.",
+          "reflection": "Contemple o medo cedendo lugar à coragem. Peça ao Espírito Santo sabedoria para servir e construir a paz.",
+          "question": "Que dom do Espírito desejo pedir hoje?"
+        },
+        {
+          "title": "A Assunção de Nossa Senhora",
+          "ref": "Lucas 1,46-49 (texto para meditação)",
+          "fruit": "Confiança na promessa de Deus",
+          "scene": "A Igreja contempla Maria, elevada em corpo e alma à glória do céu. O Magnificat inspira esta meditação; não narra a Assunção.",
+          "reflection": "Contemple em Maria a esperança da vida plena que Deus promete. Reze para viver com fidelidade até o fim.",
+          "question": "Como cultivar a esperança da vida eterna no presente?"
+        },
+        {
+          "title": "A Coroação de Nossa Senhora",
+          "ref": "Apocalipse 12,1 (imagem simbólica)",
+          "fruit": "Perseverança na fé",
+          "scene": "A tradição contempla Maria como Rainha do Céu. A mulher revestida de sol inspira simbolicamente esta reflexão.",
+          "reflection": "Contemple a alegria de quem permaneceu fiel a Deus. Peça a intercessão de Maria para seguir Jesus todos os dias.",
+          "question": "Que fidelidade silenciosa Deus me convida a viver?"
+        }
+      ]
+    }
+  },
+  "PRAYERS": {
+    "cruz": {
+      "name": "Sinal da Cruz",
+      "text": "Em nome do Pai, e do Filho, e do Espírito Santo. Amém."
+    },
+    "credo": {
+      "name": "Creio",
+      "text": "Creio em Deus Pai todo-poderoso, criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria; padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus; está sentado à direita de Deus Pai todo-poderoso, donde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo; na Santa Igreja Católica; na comunhão dos santos; na remissão dos pecados; na ressurreição da carne; na vida eterna. Amém."
+    },
+    "pai": {
+      "name": "Pai-Nosso",
+      "text": "Pai nosso que estais no céu, santificado seja o vosso nome, venha a nós o vosso Reino, seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje, perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido, e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém."
+    },
+    "ave": {
+      "name": "Ave-Maria",
+      "text": "Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém."
+    },
+    "gloria": {
+      "name": "Glória ao Pai",
+      "text": "Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém."
+    },
+    "fatima": {
+      "name": "Jaculatória de Fátima",
+      "text": "Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem da vossa misericórdia."
+    },
+    "salve": {
+      "name": "Salve-Rainha",
+      "text": "Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva. A vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e, depois deste desterro, mostrai-nos Jesus, bendito fruto do vosso ventre. Ó clemente, ó piedosa, ó doce sempre Virgem Maria. Rogai por nós, santa Mãe de Deus, para que sejamos dignos das promessas de Cristo. Amém."
+    },
+    "final": {
+      "name": "Oração final",
+      "text": "Ó Deus, cujo Filho Unigênito, por sua vida, morte e ressurreição, nos mereceu as recompensas da salvação eterna, concedei-nos, nós vos pedimos, que, meditando os mistérios do Santíssimo Rosário da Bem-aventurada Virgem Maria, imitemos o que contêm e alcancemos o que prometem. Pelo mesmo Cristo, nosso Senhor. Amém."
+    }
+  },
+  "SETS": [
+    "gozosos",
+    "luminosos",
+    "dolorosos",
+    "gloriosos"
+  ]
+}

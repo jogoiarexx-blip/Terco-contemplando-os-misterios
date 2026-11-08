@@ -1,0 +1,11 @@
+# Android nativo (Java) — Terço, Contemple os Mistérios v0.4.0 beta
+
+Código Java independente do PWA e sem WebView. A compilação do GitHub Actions gera as pinturas WebP e narrações OGG localmente, preservando o conteúdo próprio do aplicativo Android e incluindo tudo dentro do APK.
+
+- Android 6 (API 23) ou superior
+- Sem permissão de internet
+- 20 cenas WebP, 28 áudios pt-BR, 4 grupos de cinco mistérios
+- Calendário litúrgico simplificado brasileiro, oração guiada e progresso local
+- Compilação com AGP 8.9.2, Gradle 8.11.1, JDK 17 e Android SDK 35
+
+**Importante:** APK publicado é assinado com chave debug temporária do GitHub Actions. Atualizações podem requerer desinstalar a beta, eliminando progresso e intenções locais. Uma distribuição de produção exigirá assinatura persistente, teste em Android real e revisão de acessibilidade.
